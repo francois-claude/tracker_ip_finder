@@ -15,11 +15,13 @@ from tracker_utils import fetch_domains_from_url, dedupe_and_sort, write_list_to
 from tracker_resolver_utils import resolve_subdomain, resolve_subdomain_list
 
 dns_servers = [["10.114.27.1"], # pihole
+    ["217.139.208.19"], # Egypt
+    ["200.80.203.76"], # Argentina
+    ["210.5.56.145", "210.5.56.146"], # CN - China Telecom
     ["165.246.10.2"], # Korea
     ["54.94.175.250"], # Brazil
-    ["172.193.67.34"], # AU - Brisbane
     ["102.216.223.7"], # South Africa
-    ["172.193.67.34"], # AU - Brisbane
+    #["172.193.67.34"], # AU - Brisbane
     ["208.67.222.222", "208.67.220.220", "208.67.220.222"], # US - OpenDNS
     ["1.2.4.8", "210.2.4.8"], # CN - CNNIC SDNS
     ["223.5.5.5", "223.6.6.6"], # CN - AliDNS
@@ -39,8 +41,8 @@ path_tracker_ipv4 = "/var/www/static/tracker-ipaddrs-ipv4.txt"
 path_tracker_ipv6 = "/var/www/static/tracker-ipaddrs-ipv6.txt"
 
 # workers & sleep
-resolve_sleep = 0.75
-resolve_workers = 10
+resolve_sleep = 0
+resolve_workers = 15
 
 def tracker_resolver():
     # fetch subdomains
@@ -52,8 +54,8 @@ def tracker_resolver():
     )
 
     # validate resolved ipv4 and ipv6 addresses
-    validated_ipv4 = [ip for ip in resolved_ipv4 if validate_ip(ip) == "IPv4"]
-    validated_ipv6 = [ip for ip in resolved_ipv6 if validate_ip(ip) == "IPv6"]
+    validated_ipv4 = [ipv4 for ipv4 in resolved_ipv4 if validate_ip(ipv4) == "IPv4"]
+    validated_ipv6 = [ipv6 for ipv6 in resolved_ipv6 if validate_ip(ipv6) == "IPv6"]
 
     # dedupe & sort ipv4 and ipv6 addresses
     unique_ipv4 = dedupe_and_sort(validated_ipv4)
