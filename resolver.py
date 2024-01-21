@@ -41,8 +41,8 @@ path_tracker_ipv4 = "/var/www/static/tracker-ipaddrs-ipv4.txt"
 path_tracker_ipv6 = "/var/www/static/tracker-ipaddrs-ipv6.txt"
 
 # workers & sleep
-resolve_sleep = 0
-resolve_workers = 15
+resolve_sleep = 0.5
+resolve_workers = 10
 
 def tracker_resolver():
     # fetch subdomains
